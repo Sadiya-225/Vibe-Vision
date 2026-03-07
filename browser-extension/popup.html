@@ -166,14 +166,30 @@
     <!-- DISCUSS TAB -->
     <div id="discussTab" class="tab-content">
       <div id="discussContent" class="section">
-        <div class="voice-status">
+        <div class="voice-unavailable">
+          <svg class="unavailable-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+          <h3>Voice Assistant Not Available</h3>
+          <p class="unavailable-text">
+            Voice assistant is not available in the browser extension due to security restrictions.
+          </p>
+          <p class="unavailable-text">
+            Please use the <a href="https://vibe-vision.vercel.app" target="_blank" class="website-link">VibeVision website</a> for full voice assistant functionality.
+          </p>
+        </div>
+
+        <!-- Hidden for now -->
+        <div class="voice-status" style="display: none;">
           <div class="status-indicator" id="statusIndicator">
             <div class="status-dot"></div>
             <span id="statusText">Not Connected</span>
           </div>
         </div>
 
-        <div class="voice-controls">
+        <div class="voice-controls" style="display: none;">
           <button id="startCallBtn" class="btn-primary">
             Start Voice Call
           </button>

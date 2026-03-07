@@ -604,3 +604,44 @@ body {
 .transcript-message.user .transcript-role {
   color: #a855f7;
 }
+/* Voice Unavailable Message */
+.voice-unavailable {
+  text-align: center;
+  padding: 40px 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  margin: 20px 0;
+}
+
+.unavailable-icon {
+  width: 60px;
+  height: 60px;
+  color: #fbbf24;
+  margin: 0 auto 20px;
+}
+
+.voice-unavailable h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #fff;
+}
+
+.unavailable-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 12px;
+}
+
+.website-link {
+  color: #6366f1;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.website-link:hover {
+  color: #818cf8;
+  text-decoration: underline;
+}

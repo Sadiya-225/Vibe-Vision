@@ -194,11 +194,27 @@ async function analyzeImage(imageData) {
 }
 
 function sanitizeText(text) {
-  // Remove unusual control characters and normalize whitespace
+  if (!text) return '';
+
   return text
-    .replace(/[\u0000-\u001F\u007F-\u009F]/g, '') // Remove control characters
-    .replace(/[\u200B-\u200D\uFEFF]/g, '') // Remove zero-width spaces
-    .replace(/\s+/g, ' ') // Normalize whitespace
+    // Remove markdown headers (# ## ###)
+    .replace(/^#{1,6}\s+/gm, '')
+    // Remove bold/italic markers (** __ * _)
+    .replace(/(\*\*|__)(.*?)\1/g, '$2')
+    .replace(/(\*|_)(.*?)\1/g, '$2')
+    // Remove code blocks and inline code
+    .replace(/```[\s\S]*?```/g, '')
+    .replace(/`([^`]+)`/g, '$1')
+    // Remove links but keep text [text](url) -> text
+    .replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1')
+    // Remove special chars that don't sound good when read aloud
+    .replace(/[#*_`~>|]/g, '')
+    // Remove control characters
+    .replace(/[\u0000-\u001F\u007F-\u009F]/g, '')
+    // Remove zero-width spaces
+    .replace(/[\u200B-\u200D\uFEFF]/g, '')
+    // Normalize whitespace
+    .replace(/\s+/g, ' ')
     .trim();
 }
 
