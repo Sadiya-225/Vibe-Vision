@@ -10,6 +10,8 @@ import { AnalysisResults } from "@/components/features/AnalysisResults";
 import { Button } from "@/components/ui/Button";
 import { Sparkles } from "lucide-react";
 import { fileToBase64 } from "@/lib/utils";
+import { audioNotifications, AudioMessages } from "@/lib/audioNotifications";
+import { stripMarkdownForSpeech } from "@/lib/textUtils";
 
 export default function AnalyzePage() {
   const [selectedImage, setSelectedImage] = useState<File | string | null>(null);
@@ -21,12 +23,23 @@ export default function AnalyzePage() {
   } | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  const handleImageSelect = (image: File | string | null) => {
+    setSelectedImage(image);
+    // Audio notification when image is uploaded successfully
+    if (image) {
+      audioNotifications.speak(AudioMessages.IMAGE_UPLOADED);
+    }
+  };
+
   const handleAnalyze = async () => {
     if (!selectedImage) return;
 
     setIsAnalyzing(true);
     setError(null);
     setResult(null);
+
+    // Audio notification when analysis starts
+    audioNotifications.speak(AudioMessages.ANALYZING);
 
     try {
       let imageData: string;
@@ -56,7 +69,18 @@ export default function AnalyzePage() {
       }
 
       const data = await response.json();
-      setResult(data);
+
+      // Strip markdown from all Gemini output before setting state
+      const sanitizedResult = {
+        literalDescription: stripMarkdownForSpeech(data.literalDescription),
+        vibeExplanation: stripMarkdownForSpeech(data.vibeExplanation),
+        genZSummary: stripMarkdownForSpeech(data.genZSummary),
+      };
+
+      setResult(sanitizedResult);
+
+      // Audio notification when analysis completes
+      audioNotifications.speak(AudioMessages.ANALYSIS_COMPLETE);
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
     } finally {
@@ -89,7 +113,7 @@ export default function AnalyzePage() {
 
           {!result ? (
             <div className="space-y-8">
-              <ImageUpload onImageSelect={setSelectedImage} />
+              <ImageUpload onImageSelect={handleImageSelect} />
 
               {selectedImage && (
                 <div className="flex justify-center">

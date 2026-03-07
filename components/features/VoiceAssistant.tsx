@@ -6,6 +6,7 @@ import { GlassCard } from "@/components/ui/GlassCard";
 import { Button } from "@/components/ui/Button";
 import { motion, AnimatePresence } from "framer-motion";
 import { configureVibeVisionAssistant } from "@/lib/utils";
+import { audioNotifications, AudioMessages } from "@/lib/audioNotifications";
 import Lottie from "lottie-react";
 import soundwaves from "@/constants/soundwaves.json";
 
@@ -76,6 +77,11 @@ export function VoiceAssistant({ imageContext }: VoiceAssistantProps) {
         // Set up event listeners
         client.on("call-start", () => {
           setIsConnected(true);
+          // Play audio notification when call starts
+          audioNotifications.speak(AudioMessages.VOICE_CONNECTED, {
+            rate: 1.2,
+            volume: 0.6
+          });
           // First message will be handled by Vapi via the assistant configuration
         });
 
@@ -83,6 +89,11 @@ export function VoiceAssistant({ imageContext }: VoiceAssistantProps) {
           setIsConnected(false);
           setIsMuted(false);
           setIsSpeaking(false);
+          // Play audio notification when call ends
+          audioNotifications.speak(AudioMessages.VOICE_ENDED, {
+            rate: 1.2,
+            volume: 0.6
+          });
         });
 
         client.on("speech-start", () => {
