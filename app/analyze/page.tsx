@@ -1,0 +1,135 @@
+"use client";
+
+import { useState } from "react";
+import { GradientBackground } from "@/components/ui/GradientBackground";
+import { FloatingParticles } from "@/components/ui/FloatingParticles";
+import { Navigation } from "@/components/ui/Navigation";
+import { Footer } from "@/components/ui/Footer";
+import { ImageUpload } from "@/components/features/ImageUpload";
+import { AnalysisResults } from "@/components/features/AnalysisResults";
+import { Button } from "@/components/ui/Button";
+import { Sparkles } from "lucide-react";
+import { fileToBase64 } from "@/lib/utils";
+
+export default function AnalyzePage() {
+  const [selectedImage, setSelectedImage] = useState<File | string | null>(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [result, setResult] = useState<{
+    literalDescription: string;
+    vibeExplanation: string;
+    genZSummary: string;
+  } | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleAnalyze = async () => {
+    if (!selectedImage) return;
+
+    setIsAnalyzing(true);
+    setError(null);
+    setResult(null);
+
+    try {
+      let imageData: string;
+
+      if (typeof selectedImage === "string") {
+        // It's a URL
+        imageData = selectedImage;
+      } else {
+        // It's a File
+        imageData = await fileToBase64(selectedImage);
+      }
+
+      const response = await fetch("/api/analyze", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          image: imageData,
+          isUrl: typeof selectedImage === "string",
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to analyze image");
+      }
+
+      const data = await response.json();
+      setResult(data);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "An error occurred");
+    } finally {
+      setIsAnalyzing(false);
+    }
+  };
+
+  const handleReset = () => {
+    setSelectedImage(null);
+    setResult(null);
+    setError(null);
+  };
+
+  return (
+    <>
+      <GradientBackground />
+      <FloatingParticles />
+      <Navigation />
+
+      <main id="main-content" className="min-h-screen pt-16">
+        <div className="max-w-5xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">
+              Analyze an Image
+            </h1>
+            <p className="text-xl text-white/80">
+              Upload an Image or Paste a URL to Understand its Vibe and Cultural Context
+            </p>
+          </div>
+
+          {!result ? (
+            <div className="space-y-8">
+              <ImageUpload onImageSelect={setSelectedImage} />
+
+              {selectedImage && (
+                <div className="flex justify-center">
+                  <Button
+                    variant="primary"
+                    size="lg"
+                    onClick={handleAnalyze}
+                    isLoading={isAnalyzing}
+                    icon={<Sparkles className="w-5 h-5" />}
+                  >
+                    Analyze Image
+                  </Button>
+                </div>
+              )}
+
+              {error && (
+                <div
+                  className="glass-strong border-red-500/50 rounded-lg p-4 text-red-300 text-center"
+                  role="alert"
+                  aria-live="assertive"
+                >
+                  {error}
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="space-y-8">
+              <AnalysisResults result={result} />
+
+              <div className="flex justify-center">
+                <Button variant="secondary" size="lg" onClick={handleReset}>
+                  Analyze Another Image
+                </Button>
+              </div>
+            </div>
+          )}
+        </div>
+      </main>
+
+      <Footer />
+    </>
+  );
+}
