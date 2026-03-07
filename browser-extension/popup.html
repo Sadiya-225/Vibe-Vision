@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VibeVision</title>
+  <link rel="stylesheet" href="styles/popup.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+          <circle cx="12" cy="12" r="3"></circle>
+        </svg>
+        <h1>VibeVision</h1>
+      </div>
+    </header>
+
+    <!-- Upload Section -->
+    <div id="uploadSection" class="section">
+      <div class="upload-area" id="uploadArea">
+        <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          <circle cx="8.5" cy="8.5" r="1.5"></circle>
+          <polyline points="21 15 16 10 5 21"></polyline>
+        </svg>
+        <p class="upload-text">Click to upload or drag & drop</p>
+        <p class="upload-subtext">Or right-click any image on a webpage</p>
+        <input type="file" id="fileInput" accept="image/*" hidden>
+      </div>
+      
+      <div class="url-input-container">
+        <input type="text" id="urlInput" placeholder="Or paste image URL..." class="url-input">
+        <button id="analyzeUrlBtn" class="btn-secondary">Analyze URL</button>
+      </div>
+    </div>
+
+    <!-- Preview Section -->
+    <div id="previewSection" class="section hidden">
+      <div class="image-preview">
+        <img id="previewImage" alt="Selected image">
+        <button id="removeImageBtn" class="btn-remove">✕</button>
+      </div>
+      <button id="analyzeBtn" class="btn-primary">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.35-4.35"></path>
+        </svg>
+        Analyze Image
+      </button>
+    </div>
+
+    <!-- Loading Section -->
+    <div id="loadingSection" class="section hidden">
+      <div class="loader"></div>
+      <p class="loading-text">Analyzing the vibe...</p>
+    </div>
+
+    <!-- Results Section -->
+    <div id="resultsSection" class="section hidden">
+      <div class="results-header">
+        <h2>Analysis Results</h2>
+        <button id="newAnalysisBtn" class="btn-new">New Analysis</button>
+      </div>
+      
+      <div class="result-card">
+        <div class="result-header">
+          <svg class="result-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+          <h3>Literal Description</h3>
+        </div>
+        <p id="literalDescription" class="result-text"></p>
+        <button class="btn-tts" data-text="literalDescription">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+          Read Aloud
+        </button>
+      </div>
+
+      <div class="result-card">
+        <div class="result-header">
+          <svg class="result-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Z"></path>
+            <path d="M12 6v6l4 2"></path>
+          </svg>
+          <h3>Vibe Explanation</h3>
+        </div>
+        <p id="vibeExplanation" class="result-text"></p>
+        <button class="btn-tts" data-text="vibeExplanation">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+          Read Aloud
+        </button>
+      </div>
+
+      <div class="result-card">
+        <div class="result-header">
+          <svg class="result-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+          <h3>Gen-Z Summary</h3>
+        </div>
+        <p id="genZSummary" class="result-text"></p>
+        <button class="btn-tts" data-text="genZSummary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+          Read Aloud
+        </button>
+      </div>
+    </div>
+
+    <!-- Error Section -->
+    <div id="errorSection" class="section hidden">
+      <div class="error-message">
+        <svg class="error-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+        <p id="errorText"></p>
+        <button id="retryBtn" class="btn-primary">Try Again</button>
+      </div>
+    </div>
+
+    <!-- Settings Footer -->
+    <footer class="footer">
+      <button id="settingsBtn" class="btn-text">⚙️ Settings</button>
+      <a href="https://github.com/Hack-for-Infinity/TeamChampions" target="_blank" class="btn-text">About</a>
+    </footer>
+  </div>
+
+  <script src="scripts/popup.js"></script>
+</body>
+</html>

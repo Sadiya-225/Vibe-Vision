@@ -1,0 +1,34 @@
+/* VibeVision Content Script Styles */
+
+/* Image highlight on hover */
+.vibe-vision-highlight {
+  outline: 2px solid #6366f1 !important;
+  outline-offset: 2px !important;
+  cursor: pointer !important;
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.5) !important;
+  transition: all 0.2s ease !important;
+}
+
+/* Notification */
+.vibe-vision-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 999999;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+
+.vibe-vision-notification.show {
+  opacity: 1;
+  transform: translateY(0);
+}
