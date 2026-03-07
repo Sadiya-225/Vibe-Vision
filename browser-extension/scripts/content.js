@@ -34,29 +34,16 @@ function analyzeCurrentImage() {
   if (!currentHighlightedImage) return;
 
   const img = currentHighlightedImage;
-  const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d');
 
-  canvas.width = img.naturalWidth;
-  canvas.height = img.naturalHeight;
+  // Instead of using canvas (which causes CORS issues), send the image URL
+  // Let the background script handle fetching it
+  chrome.runtime.sendMessage({
+    action: 'analyzeImageUrl',
+    imageUrl: img.src
+  });
 
-  ctx.drawImage(img, 0, 0);
-
-  try {
-    const imageData = canvas.toDataURL('image/jpeg');
-
-    // Send to background script
-    chrome.runtime.sendMessage({
-      action: 'analyzeImage',
-      imageData: imageData
-    });
-
-    // Show notification
-    showNotification('Opening VibeVision analysis...');
-  } catch (error) {
-    console.error('Failed to analyze image:', error);
-    showNotification('Failed to capture image. Try right-clicking instead.');
-  }
+  // Show notification
+  showNotification('Opening VibeVision analysis...');
 }
 
 function showNotification(message) {

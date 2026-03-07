@@ -39,6 +39,24 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     chrome.storage.local.set({ pendingImage: request.imageData });
     chrome.action.openPopup();
     sendResponse({ success: true });
+  } else if (request.action === 'analyzeImageUrl') {
+    // Fetch image from URL and convert to base64
+    fetch(request.imageUrl)
+      .then(response => response.blob())
+      .then(blob => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          chrome.storage.local.set({ pendingImage: reader.result });
+          chrome.action.openPopup();
+          sendResponse({ success: true });
+        };
+        reader.readAsDataURL(blob);
+      })
+      .catch(error => {
+        console.error('Failed to fetch image:', error);
+        sendResponse({ success: false, error: error.message });
+      });
+    return true; // Keep channel open for async response
   }
   return true;
 });

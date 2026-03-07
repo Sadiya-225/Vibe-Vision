@@ -4,142 +4,220 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VibeVision</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles/popup.css">
 </head>
 <body>
+  <div class="gradient-bg"></div>
   <div class="container">
     <!-- Header -->
     <header class="header">
       <div class="logo">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-          <circle cx="12" cy="12" r="3"></circle>
-        </svg>
+        <img src="icons/icon-48.png" alt="" class="logo-icon">
         <h1>VibeVision</h1>
       </div>
     </header>
 
-    <!-- Upload Section -->
-    <div id="uploadSection" class="section">
-      <div class="upload-area" id="uploadArea">
-        <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-          <circle cx="8.5" cy="8.5" r="1.5"></circle>
-          <polyline points="21 15 16 10 5 21"></polyline>
+    <!-- Tab Controls -->
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="analyze">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+          <circle cx="12" cy="12" r="3"></circle>
         </svg>
-        <p class="upload-text">Click to upload or drag & drop</p>
-        <p class="upload-subtext">Or right-click any image on a webpage</p>
-        <input type="file" id="fileInput" accept="image/*" hidden>
-      </div>
-      
-      <div class="url-input-container">
-        <input type="text" id="urlInput" placeholder="Or paste image URL..." class="url-input">
-        <button id="analyzeUrlBtn" class="btn-secondary">Analyze URL</button>
-      </div>
-    </div>
-
-    <!-- Preview Section -->
-    <div id="previewSection" class="section hidden">
-      <div class="image-preview">
-        <img id="previewImage" alt="Selected image">
-        <button id="removeImageBtn" class="btn-remove">✕</button>
-      </div>
-      <button id="analyzeBtn" class="btn-primary">
-        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="11" cy="11" r="8"></circle>
-          <path d="m21 21-4.35-4.35"></path>
+        Analyze
+      </button>
+      <button class="tab-btn" data-tab="discuss">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
         </svg>
-        Analyze Image
+        Discuss
       </button>
     </div>
 
-    <!-- Loading Section -->
-    <div id="loadingSection" class="section hidden">
-      <div class="loader"></div>
-      <p class="loading-text">Analyzing the vibe...</p>
-    </div>
-
-    <!-- Results Section -->
-    <div id="resultsSection" class="section hidden">
-      <div class="results-header">
-        <h2>Analysis Results</h2>
-        <button id="newAnalysisBtn" class="btn-new">New Analysis</button>
-      </div>
-      
-      <div class="result-card">
-        <div class="result-header">
-          <svg class="result-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-            <circle cx="12" cy="12" r="3"></circle>
+    <!-- ANALYZE TAB -->
+    <div id="analyzeTab" class="tab-content active">
+      <!-- Upload Section -->
+      <div id="uploadSection" class="section">
+        <div class="upload-area" id="uploadArea">
+          <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+            <polyline points="21 15 16 10 5 21"></polyline>
           </svg>
-          <h3>Literal Description</h3>
+          <p class="upload-text">Click to upload or drag & drop</p>
+          <p class="upload-subtext">Right-click images on webpages or press Alt+V</p>
+          <input type="file" id="fileInput" accept="image/*" hidden>
         </div>
-        <p id="literalDescription" class="result-text"></p>
-        <button class="btn-tts" data-text="literalDescription">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+
+        <div class="url-input-container">
+          <input type="text" id="urlInput" placeholder="Or paste image URL..." class="url-input">
+          <button id="analyzeUrlBtn" class="btn-secondary">Analyze</button>
+        </div>
+      </div>
+
+      <!-- Preview Section -->
+      <div id="previewSection" class="section hidden">
+        <div class="image-preview">
+          <img id="previewImage" alt="Selected image">
+          <button id="removeImageBtn" class="btn-remove">✕</button>
+        </div>
+        <button id="analyzeBtn" class="btn-primary">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
           </svg>
-          Read Aloud
+          Analyze Image
         </button>
       </div>
 
-      <div class="result-card">
-        <div class="result-header">
-          <svg class="result-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Z"></path>
-            <path d="M12 6v6l4 2"></path>
-          </svg>
-          <h3>Vibe Explanation</h3>
-        </div>
-        <p id="vibeExplanation" class="result-text"></p>
-        <button class="btn-tts" data-text="vibeExplanation">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-          </svg>
-          Read Aloud
-        </button>
+      <!-- Loading Section -->
+      <div id="loadingSection" class="section hidden">
+        <div class="loader"></div>
+        <p class="loading-text">Analyzing the vibe...</p>
       </div>
 
-      <div class="result-card">
-        <div class="result-header">
-          <svg class="result-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-          </svg>
-          <h3>Gen-Z Summary</h3>
+      <!-- Results Section -->
+      <div id="resultsSection" class="section hidden">
+        <div class="results-header">
+          <h2>Analysis Results</h2>
+          <button id="newAnalysisBtn" class="btn-new">New</button>
         </div>
-        <p id="genZSummary" class="result-text"></p>
-        <button class="btn-tts" data-text="genZSummary">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+
+        <div class="results-scroll">
+          <div class="result-card">
+            <div class="result-header">
+              <svg class="result-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+              <h3>Literal Description</h3>
+            </div>
+            <p id="literalDescription" class="result-text"></p>
+            <button class="btn-tts" data-text="literalDescription">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+              </svg>
+              Read Aloud
+            </button>
+          </div>
+
+          <div class="result-card">
+            <div class="result-header">
+              <svg class="result-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Z"></path>
+                <path d="M12 6v6l4 2"></path>
+              </svg>
+              <h3>Vibe Explanation</h3>
+            </div>
+            <p id="vibeExplanation" class="result-text"></p>
+            <button class="btn-tts" data-text="vibeExplanation">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+              </svg>
+              Read Aloud
+            </button>
+          </div>
+
+          <div class="result-card">
+            <div class="result-header">
+              <svg class="result-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+              <h3>Gen-Z Summary</h3>
+            </div>
+            <p id="genZSummary" class="result-text"></p>
+            <button class="btn-tts" data-text="genZSummary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+              </svg>
+              Read Aloud
+            </button>
+          </div>
+
+          <button id="discussImageBtn" class="btn-primary mt-4">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+            </svg>
+            Discuss with Voice Assistant
+          </button>
+        </div>
+      </div>
+
+      <!-- Error Section -->
+      <div id="errorSection" class="section hidden">
+        <div class="error-message">
+          <svg class="error-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
           </svg>
-          Read Aloud
-        </button>
+          <p id="errorText"></p>
+          <button id="retryBtn" class="btn-primary">Try Again</button>
+        </div>
       </div>
     </div>
 
-    <!-- Error Section -->
-    <div id="errorSection" class="section hidden">
-      <div class="error-message">
-        <svg class="error-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="10"></circle>
-          <line x1="12" y1="8" x2="12" y2="12"></line>
-          <line x1="12" y1="16" x2="12.01" y2="16"></line>
-        </svg>
-        <p id="errorText"></p>
-        <button id="retryBtn" class="btn-primary">Try Again</button>
+    <!-- DISCUSS TAB -->
+    <div id="discussTab" class="tab-content">
+      <div id="discussContent" class="section">
+        <div class="voice-status">
+          <div class="status-indicator" id="statusIndicator">
+            <div class="status-dot"></div>
+            <span id="statusText">Not Connected</span>
+          </div>
+        </div>
+
+        <div class="voice-controls">
+          <button id="startCallBtn" class="btn-primary">
+            Start Voice Call
+          </button>
+
+          <div id="callControls" class="call-controls hidden">
+            <button id="muteBtn" class="btn-secondary btn-control">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                <line x1="12" y1="19" x2="12" y2="23"></line>
+                <line x1="8" y1="23" x2="16" y2="23"></line>
+              </svg>
+              Mute
+            </button>
+
+            <button id="endCallBtn" class="btn-danger btn-control">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                <line x1="23" y1="1" x2="1" y2="23"></line>
+              </svg>
+              End Call
+            </button>
+          </div>
+        </div>
+
+        <div id="soundwaveContainer" class="soundwave-container hidden">
+          <div class="soundwave-bar"></div>
+          <div class="soundwave-bar"></div>
+          <div class="soundwave-bar"></div>
+          <div class="soundwave-bar"></div>
+          <div class="soundwave-bar"></div>
+        </div>
+
+        <div class="transcript-container">
+          <h3>Conversation</h3>
+          <div id="transcript" class="transcript">
+            <p class="transcript-empty">Start a voice call to begin the conversation</p>
+          </div>
+        </div>
       </div>
     </div>
-
-    <!-- Settings Footer -->
-    <footer class="footer">
-      <button id="settingsBtn" class="btn-text">⚙️ Settings</button>
-      <a href="https://github.com/Hack-for-Infinity/TeamChampions" target="_blank" class="btn-text">About</a>
-    </footer>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@vapi-ai/web@2.3.0/dist/index.min.js"></script>
   <script src="scripts/popup.js"></script>
 </body>
 </html>
