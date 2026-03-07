@@ -160,7 +160,7 @@ async function analyzeImage(imageData) {
 
   try {
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -193,14 +193,23 @@ async function analyzeImage(imageData) {
   }
 }
 
+function sanitizeText(text) {
+  // Remove unusual control characters and normalize whitespace
+  return text
+    .replace(/[\u0000-\u001F\u007F-\u009F]/g, '') // Remove control characters
+    .replace(/[\u200B-\u200D\uFEFF]/g, '') // Remove zero-width spaces
+    .replace(/\s+/g, ' ') // Normalize whitespace
+    .trim();
+}
+
 function parseAnalysis(text) {
   const sections = { literalDescription: '', vibeExplanation: '', genZSummary: '' };
   const literalMatch = text.match(/1\.\s*LITERAL DESCRIPTION[:\s]*([\s\S]*?)(?=2\.|$)/i);
   const vibeMatch = text.match(/2\.\s*VIBE EXPLANATION[:\s]*([\s\S]*?)(?=3\.|$)/i);
   const genZMatch = text.match(/3\.\s*GEN-?Z\s+VIBE\s+SUMMARY[:\s]*([\s\S]*?)$/i);
-  if (literalMatch) sections.literalDescription = literalMatch[1].trim();
-  if (vibeMatch) sections.vibeExplanation = vibeMatch[1].trim();
-  if (genZMatch) sections.genZSummary = genZMatch[1].trim();
+  if (literalMatch) sections.literalDescription = sanitizeText(literalMatch[1]);
+  if (vibeMatch) sections.vibeExplanation = sanitizeText(vibeMatch[1]);
+  if (genZMatch) sections.genZSummary = sanitizeText(genZMatch[1]);
   return sections;
 }
 
