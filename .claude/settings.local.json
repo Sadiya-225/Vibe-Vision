@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(npm run build:*)",
+      "Bash(git init:*)",
+      "Bash(git remote add:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nfeat: initialize Next.js 16 project with TypeScript and TailwindCSS\n\n- Set up Next.js 16.1.6 with App Router\n- Configure TypeScript with strict mode\n- Add TailwindCSS 4 for styling\n- Configure remote image patterns for external URLs\n- Add environment variables template for API keys\n- Install core dependencies: @google/generative-ai, @vapi-ai/web, framer-motion\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nfeat: add glassmorphism theme and utility functions\n\n- Implement dark futuristic glassmorphism design system\n- Add custom CSS classes for glass effects and glow animations\n- Create utility functions for class name management \\(cn\\)\n- Configure VibeVision voice assistant with inline configuration\n- Add image context support for voice assistant discussions\n- Set up TailwindCSS theme with custom colors and gradients\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nfeat: create reusable UI components with glassmorphism design\n\n- Add GlassCard component with customizable variants\n- Implement Button component with Framer Motion animations\n- Create Navigation header with accessibility features\n- Build ImageUpload component with drag-drop support\n- Add Loading component with animated spinner\n- Implement all components with WCAG 2.1 AA compliance\n- Include proper ARIA labels and keyboard navigation\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git filter-branch:*)"
+    ]
+  }
+}

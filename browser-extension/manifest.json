@@ -34,5 +34,8 @@
       "js": ["scripts/content.js"],
       "css": ["styles/content.css"]
     }
-  ]
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' https://unpkg.com; object-src 'self'"
+  }
 }

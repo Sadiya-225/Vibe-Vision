@@ -37,13 +37,21 @@ function analyzeCurrentImage() {
 
   // Instead of using canvas (which causes CORS issues), send the image URL
   // Let the background script handle fetching it
-  chrome.runtime.sendMessage({
-    action: 'analyzeImageUrl',
-    imageUrl: img.src
-  });
-
-  // Show notification
-  showNotification('Opening VibeVision analysis...');
+  try {
+    chrome.runtime.sendMessage({
+      action: 'analyzeImageUrl',
+      imageUrl: img.src
+    });
+    // Show notification
+    showNotification('Opening VibeVision Analysis...');
+  } catch (error) {
+    // Extension context invalidated (extension was reloaded)
+    if (error.message.includes('Extension context invalidated')) {
+      showNotification('Please refresh the page after extension update');
+    } else {
+      console.error('Error sending message:', error);
+    }
+  }
 }
 
 function showNotification(message) {
