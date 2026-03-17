@@ -37,7 +37,7 @@ export function GlassCard({
       transition={{ duration: 0.5, delay }}
       whileHover={hover ? { y: -5, scale: 1.02 } : {}}
       className={cn(
-        "glass rounded-2xl p-6 shadow-lg",
+        "glass rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 shadow-lg",
         hover && "cursor-pointer transition-all duration-300",
         glowClass,
         className
@@ -62,7 +62,7 @@ export function GlassCardStrong({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       className={cn(
-        "glass-strong rounded-2xl p-6 shadow-xl",
+        "glass-strong rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 shadow-xl",
         className
       )}
       role={role}

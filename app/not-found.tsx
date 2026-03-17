@@ -14,26 +14,26 @@ export default function NotFound() {
       <FloatingParticles />
       <Navigation />
 
-      <main id="main-content" className="min-h-screen pt-16 flex items-center justify-center">
-        <div className="max-w-2xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
-          <GlassCard glow="blue" className="text-center space-y-6">
-            <div className="text-8xl font-bold text-transparent bg-linear-to-r from-blue-400 to-purple-500 bg-clip-text">
+      <main id="main-content" className="min-h-screen pt-14 sm:pt-16 flex items-center justify-center px-4">
+        <div className="max-w-2xl mx-auto py-8 sm:py-12 sm:px-6 lg:px-8 w-full">
+          <GlassCard glow="blue" className="text-center space-y-4 sm:space-y-6">
+            <div className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-transparent bg-linear-to-r from-blue-400 to-purple-500 bg-clip-text">
               404
             </div>
-            <h1 className="text-3xl sm:text-4xl font-bold text-white">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">
               Page Not Found
             </h1>
-            <p className="text-xl text-white/80">
+            <p className="text-base sm:text-lg md:text-xl text-white/80 px-2">
               The page you're looking for doesn't exist or has been moved.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Link href="/">
-                <Button variant="primary" size="lg" icon={<Home className="w-5 h-5" />}>
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center pt-2 sm:pt-4">
+              <Link href="/" className="w-full sm:w-auto">
+                <Button variant="primary" size="lg" icon={<Home className="w-4 h-4 sm:w-5 sm:h-5" />}>
                   Go Home
                 </Button>
               </Link>
-              <Link href="/analyze">
-                <Button variant="secondary" size="lg" icon={<Search className="w-5 h-5" />}>
+              <Link href="/analyze" className="w-full sm:w-auto">
+                <Button variant="secondary" size="lg" icon={<Search className="w-4 h-4 sm:w-5 sm:h-5" />}>
                   Analyze an Image
                 </Button>
               </Link>

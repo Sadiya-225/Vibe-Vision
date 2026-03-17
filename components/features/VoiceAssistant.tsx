@@ -181,15 +181,15 @@ export function VoiceAssistant({ imageContext }: VoiceAssistantProps) {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Controls */}
-      <div className="flex flex-wrap gap-4 justify-center">
+      <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-4 justify-center">
         {!isConnected ? (
           <Button
             variant="primary"
             size="lg"
             onClick={startCall}
-            icon={<Phone className="w-5 h-5" />}
+            icon={<Phone className="w-4 h-4 sm:w-5 sm:h-5" />}
             aria-label="Start voice call"
           >
             Start Voice Call
@@ -200,7 +200,7 @@ export function VoiceAssistant({ imageContext }: VoiceAssistantProps) {
               variant="primary"
               size="lg"
               onClick={endCall}
-              icon={<PhoneOff className="w-5 h-5" />}
+              icon={<PhoneOff className="w-4 h-4 sm:w-5 sm:h-5" />}
               aria-label="End voice call"
             >
               End Call
@@ -209,7 +209,7 @@ export function VoiceAssistant({ imageContext }: VoiceAssistantProps) {
               variant="secondary"
               size="lg"
               onClick={toggleMute}
-              icon={isMuted ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
+              icon={isMuted ? <MicOff className="w-4 h-4 sm:w-5 sm:h-5" /> : <Mic className="w-4 h-4 sm:w-5 sm:h-5" />}
               aria-label={isMuted ? "Unmute microphone" : "Mute microphone"}
             >
               {isMuted ? "Unmute" : "Mute"}
@@ -236,17 +236,17 @@ export function VoiceAssistant({ imageContext }: VoiceAssistantProps) {
               animationData={soundwaves}
               autoplay={false}
               loop={true}
-              className="h-48 w-48"
+              className="h-28 w-28 sm:h-36 sm:w-36 md:h-48 md:w-48"
             />
           </div>
         </motion.div>
       )}
 
       {/* Status Indicator */}
-      <div className="flex flex-col items-center gap-4">
+      <div className="flex flex-col items-center gap-3 sm:gap-4">
         {/* Status Badge */}
         <motion.div
-          className={`flex items-center gap-2 px-4 py-2 rounded-full glass ${
+          className={`flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full glass text-sm sm:text-base ${
             isConnected ? "glow-primary" : ""
           }`}
           animate={{
@@ -258,7 +258,7 @@ export function VoiceAssistant({ imageContext }: VoiceAssistantProps) {
           }}
         >
           <div
-            className={`w-3 h-3 rounded-full ${
+            className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full ${
               isConnected ? "bg-green-400" : "bg-gray-400"
             }`}
             aria-hidden="true"
@@ -271,12 +271,12 @@ export function VoiceAssistant({ imageContext }: VoiceAssistantProps) {
 
       {/* Transcript Panel */}
       <GlassCard role="log" ariaLabel="Conversation transcript">
-        <div className="space-y-4">
-          <h2 className="text-xl font-bold text-white">Conversation</h2>
+        <div className="space-y-3 sm:space-y-4">
+          <h2 className="text-lg sm:text-xl font-bold text-white">Conversation</h2>
 
           <div
             ref={transcriptContainerRef}
-            className="space-y-4 max-h-96 overflow-y-auto pr-2"
+            className="space-y-3 sm:space-y-4 max-h-60 sm:max-h-72 md:max-h-80 lg:max-h-96 overflow-y-auto pr-1 sm:pr-2"
             aria-live="polite"
           >
             <AnimatePresence>
@@ -291,17 +291,17 @@ export function VoiceAssistant({ imageContext }: VoiceAssistantProps) {
                   }`}
                 >
                   <div
-                    className={`max-w-[80%] px-4 py-3 rounded-2xl ${
+                    className={`max-w-[85%] sm:max-w-[80%] px-3 py-2 sm:px-4 sm:py-3 rounded-xl sm:rounded-2xl ${
                       message.role === "user"
                         ? "bg-blue-500/30 text-white"
                         : "glass text-white"
                     }`}
                   >
-                    <div className="text-sm font-semibold mb-1">
+                    <div className="text-sm sm:text-sm font-semibold mb-0.5 sm:mb-1">
                       {message.role === "user" ? "You" : "Assistant"}
                     </div>
-                    <div className="text-sm">{message.content}</div>
-                    <div className="text-sm text-white/50 mt-1">
+                    <div className="text-sm sm:text-sm">{message.content}</div>
+                    <div className="text-sm text-white/50 mt-0.5 sm:mt-1">
                       {message.timestamp.toLocaleTimeString()}
                     </div>
                   </div>
@@ -311,7 +311,7 @@ export function VoiceAssistant({ imageContext }: VoiceAssistantProps) {
           </div>
 
           {messages.length === 0 && (
-            <div className="text-center text-white/60 py-8">
+            <div className="text-center text-white/60 py-6 sm:py-8 text-sm sm:text-base">
               Start a Voice Call to Begin the Conversation
             </div>
           )}

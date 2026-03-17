@@ -38,14 +38,14 @@ export default function Home() {
                 AI that Explains the Vibe Behind Images, Memes, and Visual Culture.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8">
-                <Link href="/analyze">
-                  <Button variant="primary" size="lg" icon={<Eye className="w-5 h-5" />}>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-stretch sm:items-center pt-8 px-4 sm:px-0">
+                <Link href="/analyze" className="block">
+                  <Button variant="primary" size="lg" icon={<Eye className="w-5 h-5" />} className="w-full justify-center">
                     Analyze an Image
                   </Button>
                 </Link>
-                <Link href="/voice">
-                  <Button variant="secondary" size="lg" icon={<Mic className="w-5 h-5" />}>
+                <Link href="/voice" className="block">
+                  <Button variant="secondary" size="lg" icon={<Mic className="w-5 h-5" />} className="w-full justify-center">
                     Discuss with Voice
                   </Button>
                 </Link>

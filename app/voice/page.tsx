@@ -99,29 +99,30 @@ export default function VoicePage() {
       <FloatingParticles />
       <Navigation />
 
-      <main id="main-content" className="min-h-screen pt-16">
-        <div className="max-w-5xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-              Discuss Images with Voice Assistant
+      <main id="main-content" className="min-h-screen pt-14 sm:pt-16">
+        <div className="max-w-5xl mx-auto px-4 py-6 sm:py-8 md:py-12 sm:px-6 lg:px-8">
+          <div className="text-center mb-6 sm:mb-8 md:mb-12">
+            <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2 sm:mb-3 md:mb-4">
+              Discuss Images with Voice
             </h1>
-            <p className="text-xl text-white/80">
+            <p className="text-base sm:text-lg md:text-xl text-white/80 px-2">
               Upload an Image and Have an Interactive Voice Conversation About It
             </p>
           </div>
 
           {!result ? (
-            <div className="space-y-8">
+            <div className="space-y-4 sm:space-y-6 md:space-y-8">
               <ImageUpload onImageSelect={handleImageSelect} />
 
               {selectedImage && (
-                <div className="flex justify-center">
+                <div className="flex justify-center px-4 sm:px-0">
                   <Button
                     variant="primary"
                     size="lg"
                     onClick={handleAnalyze}
                     isLoading={isAnalyzing}
-                    icon={<Sparkles className="w-5 h-5" />}
+                    icon={<Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />}
+                    className="w-full sm:w-auto"
                   >
                     Analyze & Discuss
                   </Button>
@@ -130,7 +131,7 @@ export default function VoicePage() {
 
               {error && (
                 <div
-                  className="glass-strong border-red-500/50 rounded-lg p-4 text-red-300 text-center"
+                  className="glass-strong border-red-500/50 rounded-lg p-3 sm:p-4 text-red-300 text-center text-sm sm:text-base"
                   role="alert"
                   aria-live="assertive"
                 >
@@ -139,31 +140,32 @@ export default function VoicePage() {
               )}
             </div>
           ) : (
-            <div className="space-y-8">
+            <div className="space-y-4 sm:space-y-6 md:space-y-8">
               {/* Results Summary Card */}
               <GlassCard glow="blue">
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <h2 className="text-2xl font-bold text-white">Image Analysis Summary</h2>
+                <div className="space-y-3 sm:space-y-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4">
+                    <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-white">Image Analysis Summary</h2>
                     <Button
                       variant="ghost"
                       onClick={handleReset}
-                      icon={<ArrowLeft className="w-5 h-5" />}
+                      icon={<ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />}
                       aria-label="Analyze another image"
+                      className="self-start sm:self-auto"
                     >
                       New Image
                     </Button>
                   </div>
-                  <div className="space-y-3 text-white/80">
-                    <p className="text-md">
+                  <div className="space-y-2 sm:space-y-3 text-white/80">
+                    <p className="text-sm sm:text-base">
                       <span className="font-semibold text-blue-400">Literal: </span>
                       {result.literalDescription.substring(0, 150)}...
                     </p>
-                    <p className="text-md">
+                    <p className="text-sm sm:text-base">
                       <span className="font-semibold text-purple-400">Vibe: </span>
                       {result.vibeExplanation.substring(0, 150)}...
                     </p>
-                    <p className="text-md">
+                    <p className="text-sm sm:text-base">
                       <span className="font-semibold text-indigo-400">Gen-Z: </span>
                       {result.genZSummary}
                     </p>
@@ -173,9 +175,9 @@ export default function VoicePage() {
 
               {/* Voice Assistant Section */}
               <GlassCard glow="primary">
-                <div className="space-y-6">
-                  <div className="text-center space-y-2">
-                    <h2 className="text-3xl font-bold text-white">
+                <div className="space-y-4 sm:space-y-6">
+                  <div className="text-center space-y-1 sm:space-y-2">
+                    <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white">
                       Now Let's Discuss It!
                     </h2>
                   </div>

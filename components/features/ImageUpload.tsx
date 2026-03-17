@@ -100,33 +100,33 @@ export function ImageUpload({ onImageSelect }: ImageUploadProps) {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Method Selector */}
-      <div className="flex gap-4 justify-center" role="tablist" aria-label="Upload method">
+      <div className="flex flex-col xs:flex-row gap-2 sm:gap-4 justify-center" role="tablist" aria-label="Upload method">
         <button
           role="tab"
           aria-selected={uploadMethod === "upload"}
           onClick={() => setUploadMethod("upload")}
-          className={`px-6 py-3 rounded-full transition-all ${
+          className={`px-4 py-2 sm:px-6 sm:py-3 rounded-full transition-all text-sm sm:text-base ${
             uploadMethod === "upload"
               ? "glass-strong text-white glow-blue"
               : "glass text-white/60 hover:text-white"
           }`}
         >
-          <Upload className="w-5 h-5 inline mr-2" aria-hidden="true" />
+          <Upload className="w-4 h-4 sm:w-5 sm:h-5 inline mr-1.5 sm:mr-2" aria-hidden="true" />
           Upload / Drop
         </button>
         <button
           role="tab"
           aria-selected={uploadMethod === "url"}
           onClick={() => setUploadMethod("url")}
-          className={`px-6 py-3 rounded-full transition-all ${
+          className={`px-4 py-2 sm:px-6 sm:py-3 rounded-full transition-all text-sm sm:text-base ${
             uploadMethod === "url"
               ? "glass-strong text-white glow-blue"
               : "glass text-white/60 hover:text-white"
           }`}
         >
-          <LinkIcon className="w-5 h-5 inline mr-2" aria-hidden="true" />
+          <LinkIcon className="w-4 h-4 sm:w-5 sm:h-5 inline mr-1.5 sm:mr-2" aria-hidden="true" />
           Image URL
         </button>
       </div>
@@ -157,16 +157,16 @@ export function ImageUpload({ onImageSelect }: ImageUploadProps) {
             {!preview ? (
               <label
                 htmlFor="file-upload"
-                className="flex flex-col items-center justify-center py-12 cursor-pointer"
+                className="flex flex-col items-center justify-center py-8 sm:py-12 cursor-pointer px-4"
               >
                 <Upload
-                  className="w-16 h-16 text-blue-400 mb-4"
+                  className="w-12 h-12 sm:w-16 sm:h-16 text-blue-400 mb-3 sm:mb-4"
                   aria-hidden="true"
                 />
-                <p className="text-xl text-white mb-2">
+                <p className="text-base sm:text-xl text-white mb-2 text-center">
                   Drop an Image Here or Click to Browse
                 </p>
-                <p className="text-sm text-white/60">
+                <p className="text-sm sm:text-sm text-white/60 text-center">
                   Supports JPEG, PNG, GIF, WebP (Max 10MB)
                 </p>
               </label>
@@ -174,12 +174,12 @@ export function ImageUpload({ onImageSelect }: ImageUploadProps) {
               <div className="relative">
                 <button
                   onClick={clearPreview}
-                  className="absolute top-2 right-2 p-2 rounded-full glass-strong hover:bg-red-500/20 transition-colors z-10"
+                  className="absolute top-2 right-2 p-1.5 sm:p-2 rounded-full glass-strong hover:bg-red-500/20 transition-colors z-10"
                   aria-label="Remove image"
                 >
-                  <X className="w-5 h-5 text-white" />
+                  <X className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                 </button>
-                <div className="relative w-full h-64 rounded-lg overflow-hidden">
+                <div className="relative w-full h-48 sm:h-56 md:h-64 lg:h-72 rounded-lg overflow-hidden">
                   <Image
                     src={preview}
                     alt="Preview of uploaded image"
@@ -193,23 +193,23 @@ export function ImageUpload({ onImageSelect }: ImageUploadProps) {
         </GlassCard>
       ) : (
         <GlassCard>
-          <div className="space-y-4">
-            <label htmlFor="image-url" className="block text-white text-sm font-medium mb-2">
+          <div className="space-y-3 sm:space-y-4">
+            <label htmlFor="image-url" className="block text-white text-sm font-medium mb-1 sm:mb-2">
               Enter Image URL
             </label>
-            <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row gap-2">
               <input
                 type="url"
                 id="image-url"
                 value={imageUrl}
                 onChange={(e) => setImageUrl(e.target.value)}
                 placeholder="https://example.com/image.jpg"
-                className="flex-1 px-4 py-3 rounded-lg glass text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="flex-1 px-3 py-2 sm:px-4 sm:py-3 rounded-lg glass text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
                 aria-label="Image URL"
               />
               <button
                 onClick={handlePaste}
-                className="px-4 py-3 rounded-lg glass hover:glass-strong transition-all text-white"
+                className="px-4 py-2 sm:py-3 rounded-lg glass hover:glass-strong transition-all text-white text-sm sm:text-base whitespace-nowrap"
                 aria-label="Paste from clipboard"
               >
                 Paste
@@ -226,12 +226,12 @@ export function ImageUpload({ onImageSelect }: ImageUploadProps) {
               <div className="relative">
                 <button
                   onClick={clearPreview}
-                  className="absolute top-2 right-2 p-2 rounded-full glass-strong hover:bg-red-500/20 transition-colors z-10"
+                  className="absolute top-2 right-2 p-1.5 sm:p-2 rounded-full glass-strong hover:bg-red-500/20 transition-colors z-10"
                   aria-label="Remove image"
                 >
-                  <X className="w-5 h-5 text-white" />
+                  <X className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                 </button>
-                <div className="relative w-full h-64 rounded-lg overflow-hidden mt-4">
+                <div className="relative w-full h-48 sm:h-56 md:h-64 lg:h-72 rounded-lg overflow-hidden mt-3 sm:mt-4">
                   <Image
                     src={preview}
                     alt="Preview of image from URL"

@@ -100,29 +100,30 @@ export default function AnalyzePage() {
       <FloatingParticles />
       <Navigation />
 
-      <main id="main-content" className="min-h-screen pt-16">
-        <div className="max-w-5xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">
+      <main id="main-content" className="min-h-screen pt-14 sm:pt-16">
+        <div className="max-w-5xl mx-auto px-4 py-6 sm:py-8 md:py-12 sm:px-6 lg:px-8">
+          <div className="text-center mb-6 sm:mb-8 md:mb-12">
+            <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2 sm:mb-3 md:mb-4">
               Analyze an Image
             </h1>
-            <p className="text-xl text-white/80">
+            <p className="text-base sm:text-lg md:text-xl text-white/80 px-2">
               Upload an Image or Paste a URL to Understand its Vibe and Cultural Context
             </p>
           </div>
 
           {!result ? (
-            <div className="space-y-8">
+            <div className="space-y-4 sm:space-y-6 md:space-y-8">
               <ImageUpload onImageSelect={handleImageSelect} />
 
               {selectedImage && (
-                <div className="flex justify-center">
+                <div className="flex justify-center px-4 sm:px-0">
                   <Button
                     variant="primary"
                     size="lg"
                     onClick={handleAnalyze}
                     isLoading={isAnalyzing}
-                    icon={<Sparkles className="w-5 h-5" />}
+                    icon={<Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />}
+                    className="w-full sm:w-auto"
                   >
                     Analyze Image
                   </Button>
@@ -131,7 +132,7 @@ export default function AnalyzePage() {
 
               {error && (
                 <div
-                  className="glass-strong border-red-500/50 rounded-lg p-4 text-red-300 text-center"
+                  className="glass-strong border-red-500/50 rounded-lg p-3 sm:p-4 text-red-300 text-center text-sm sm:text-base"
                   role="alert"
                   aria-live="assertive"
                 >
@@ -140,11 +141,11 @@ export default function AnalyzePage() {
               )}
             </div>
           ) : (
-            <div className="space-y-8">
+            <div className="space-y-4 sm:space-y-6 md:space-y-8">
               <AnalysisResults result={result} />
 
-              <div className="flex justify-center">
-                <Button variant="secondary" size="lg" onClick={handleReset}>
+              <div className="flex justify-center px-4 sm:px-0">
+                <Button variant="secondary" size="lg" onClick={handleReset} className="w-full sm:w-auto">
                   Analyze Another Image
                 </Button>
               </div>

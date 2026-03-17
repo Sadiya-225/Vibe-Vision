@@ -65,13 +65,13 @@ export function AnalysisResults({ result }: AnalysisResultsProps) {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Controls */}
-      <div className="flex flex-wrap gap-4 justify-center">
+      <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-4 justify-center">
         <Button
           variant={isSpeaking ? "primary" : "secondary"}
           onClick={isSpeaking ? stopSpeaking : speakAll}
-          icon={isSpeaking ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+          icon={isSpeaking ? <VolumeX className="w-4 h-4 sm:w-5 sm:h-5" /> : <Volume2 className="w-4 h-4 sm:w-5 sm:h-5" />}
           aria-label={isSpeaking ? "Stop reading" : "Read all results aloud"}
         >
           {isSpeaking ? "Stop Reading" : "Read Aloud"}
@@ -79,7 +79,7 @@ export function AnalysisResults({ result }: AnalysisResultsProps) {
 
         <button
           onClick={() => setScreenReaderMode(!screenReaderMode)}
-          className={`flex items-center gap-2 px-6 py-3 rounded-full transition-all ${
+          className={`flex items-center justify-center gap-1.5 sm:gap-2 px-4 py-2 sm:px-6 sm:py-3 rounded-full transition-all text-sm sm:text-base ${
             screenReaderMode
               ? "glass-strong text-white glow-blue"
               : "glass text-white/80 hover:text-white"
@@ -88,39 +88,39 @@ export function AnalysisResults({ result }: AnalysisResultsProps) {
           aria-pressed={screenReaderMode}
         >
           {screenReaderMode ? (
-            <ToggleRight className="w-5 h-5 text-blue-400" aria-hidden="true" />
+            <ToggleRight className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400" aria-hidden="true" />
           ) : (
-            <ToggleLeft className="w-5 h-5" aria-hidden="true" />
+            <ToggleLeft className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
           )}
-          <span>Simplify for Screen Reader</span>
+          <span className="whitespace-nowrap">Simplify for Screen Reader</span>
         </button>
       </div>
 
       {/* Results Cards */}
-      <div className="grid grid-cols-1 gap-6">
+      <div className="grid grid-cols-1 gap-4 sm:gap-6">
         {/* Literal Description */}
         <GlassCard glow="blue" delay={0} role="article" ariaLabel="Literal description of image">
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="p-3 rounded-full bg-blue-500/20 glow-blue">
-                  <Eye className="w-6 h-6 text-blue-400" aria-hidden="true" />
+          <div className="space-y-3 sm:space-y-4">
+            <div className="flex items-start sm:items-center justify-between gap-2">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="p-2 sm:p-3 rounded-full bg-blue-500/20 glow-blue shrink-0">
+                  <Eye className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400" aria-hidden="true" />
                 </div>
-                <h2 className="text-2xl font-bold text-white">Literal Description</h2>
+                <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-white">Literal Description</h2>
               </div>
               <button
                 onClick={() => speak(result.literalDescription)}
-                className="p-2 rounded-full glass hover:glass-strong transition-all"
+                className="p-1.5 sm:p-2 rounded-full glass hover:glass-strong transition-all shrink-0"
                 aria-label="Read literal description aloud"
               >
-                <Volume2 className="w-5 h-5 text-white" aria-hidden="true" />
+                <Volume2 className="w-4 h-4 sm:w-5 sm:h-5 text-white" aria-hidden="true" />
               </button>
             </div>
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
-              className="text-white/90 text-lg leading-relaxed"
+              className="text-white/90 text-sm sm:text-base md:text-lg leading-relaxed"
             >
               {screenReaderMode
                 ? formatForScreenReader(result.literalDescription)
@@ -131,27 +131,27 @@ export function AnalysisResults({ result }: AnalysisResultsProps) {
 
         {/* Vibe Explanation */}
         <GlassCard glow="purple" delay={0.1} role="article" ariaLabel="Vibe and context explanation">
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="p-3 rounded-full bg-purple-500/20 glow-purple">
-                  <Brain className="w-6 h-6 text-purple-400" aria-hidden="true" />
+          <div className="space-y-3 sm:space-y-4">
+            <div className="flex items-start sm:items-center justify-between gap-2">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="p-2 sm:p-3 rounded-full bg-purple-500/20 glow-purple shrink-0">
+                  <Brain className="w-5 h-5 sm:w-6 sm:h-6 text-purple-400" aria-hidden="true" />
                 </div>
-                <h2 className="text-2xl font-bold text-white">Vibe Explanation</h2>
+                <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-white">Vibe Explanation</h2>
               </div>
               <button
                 onClick={() => speak(result.vibeExplanation)}
-                className="p-2 rounded-full glass hover:glass-strong transition-all"
+                className="p-1.5 sm:p-2 rounded-full glass hover:glass-strong transition-all shrink-0"
                 aria-label="Read vibe explanation aloud"
               >
-                <Volume2 className="w-5 h-5 text-white" aria-hidden="true" />
+                <Volume2 className="w-4 h-4 sm:w-5 sm:h-5 text-white" aria-hidden="true" />
               </button>
             </div>
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
-              className="text-white/90 text-lg leading-relaxed"
+              className="text-white/90 text-sm sm:text-base md:text-lg leading-relaxed"
             >
               {screenReaderMode
                 ? formatForScreenReader(result.vibeExplanation)
@@ -162,27 +162,27 @@ export function AnalysisResults({ result }: AnalysisResultsProps) {
 
         {/* Gen Z Summary */}
         <GlassCard glow="primary" delay={0.2} role="article" ariaLabel="Gen Z style summary">
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="p-3 rounded-full bg-indigo-500/20 glow-primary">
-                  <Sparkles className="w-6 h-6 text-indigo-400" aria-hidden="true" />
+          <div className="space-y-3 sm:space-y-4">
+            <div className="flex items-start sm:items-center justify-between gap-2">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="p-2 sm:p-3 rounded-full bg-indigo-500/20 glow-primary shrink-0">
+                  <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-indigo-400" aria-hidden="true" />
                 </div>
-                <h2 className="text-2xl font-bold text-white">Gen-Z Vibe Summary</h2>
+                <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-white">Gen-Z Vibe Summary</h2>
               </div>
               <button
                 onClick={() => speak(result.genZSummary)}
-                className="p-2 rounded-full glass hover:glass-strong transition-all"
+                className="p-1.5 sm:p-2 rounded-full glass hover:glass-strong transition-all shrink-0"
                 aria-label="Read Gen Z summary aloud"
               >
-                <Volume2 className="w-5 h-5 text-white" aria-hidden="true" />
+                <Volume2 className="w-4 h-4 sm:w-5 sm:h-5 text-white" aria-hidden="true" />
               </button>
             </div>
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="text-white/90 text-lg leading-relaxed"
+              className="text-white/90 text-sm sm:text-base md:text-lg leading-relaxed"
             >
               {screenReaderMode
                 ? formatForScreenReader(result.genZSummary)
